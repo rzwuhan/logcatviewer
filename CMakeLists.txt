@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.10)
-project(guitools)
+project(logcatviewer)
 
 set(CMAKE_PREFIX_PATH /opt/qt/5.9.6/gcc_64/lib/cmake)
 set(CMAKE_CXX_STANDARD 11)
