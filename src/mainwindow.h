@@ -115,10 +115,11 @@ public:
     QtMaterialTextField *mFilterKeywordWidget;
     QtMaterialAutoComplete *mFilterSelectionWidget;
 
+    QtMaterialFlatButton *mClearWidget;
     QtMaterialFlatButton *mAutoScrolWidget;
     QtMaterialTextField *mSearchKeywordWidget;
-    QtMaterialRaisedButton *mSearchPrevButton;
-    QtMaterialRaisedButton *mSearchNextButton;
+    QtMaterialFlatButton *mSearchPrevButton;
+    QtMaterialFlatButton *mSearchNextButton;
     QLabel *mSearchResultWidget;
 
     QPlainTextEdit *mLogWidget;
@@ -155,32 +156,20 @@ public:
         layout1->addLayout(layout21);
 
         QHBoxLayout *layout22 = new QHBoxLayout();
-        mAutoScrolWidget = new QtMaterialFlatButton(centralWidget);
-        mAutoScrolWidget->setRole(Material::Role::Primary);
-        mAutoScrolWidget->setFixedSize(28, 28);
-        mAutoScrolWidget->setIcon(QtMaterialTheme::icon("action", "get_app"));
-        mAutoScrolWidget->setIconSize(QSize(25, 25));
-        mAutoScrolWidget->setFocusPolicy(Qt::NoFocus);
-        mAutoScrolWidget->setRippleStyle(Material::RippleStyle::NoRipple);
-        mAutoScrolWidget->setOverlayStyle(Material::OverlayStyle::TintedOverlay);
+        mClearWidget = makeIconButton(centralWidget, "content", "delete_sweep");
+        layout22->addWidget(mClearWidget);
+
+        mAutoScrolWidget = makeIconButton(centralWidget, "action", "get_app");
         mAutoScrolWidget->setCheckable(true);
         layout22->addWidget(mAutoScrolWidget);
 
         mSearchKeywordWidget = new QtMaterialTextField(centralWidget);
         layout22->addWidget(mSearchKeywordWidget);
 
-        mSearchPrevButton = new QtMaterialRaisedButton(centralWidget);
-        mSearchPrevButton->setRole(Material::Role::Primary);
-        mSearchPrevButton->setFixedSize(28, 28);
-        mSearchPrevButton->setIcon(QtMaterialTheme::icon("navigation", "arrow_upward"));
-        mSearchPrevButton->setIconSize(QSize(25, 25));
+        mSearchPrevButton = makeIconButton(centralWidget, "navigation", "arrow_upward");
         layout22->addWidget(mSearchPrevButton);
 
-        mSearchNextButton = new QtMaterialRaisedButton(centralWidget);
-        mSearchNextButton->setRole(Material::Role::Primary);
-        mSearchNextButton->setFixedSize(28, 28);
-        mSearchNextButton->setIcon(QtMaterialTheme::icon("navigation", "arrow_downward"));
-        mSearchNextButton->setIconSize(QSize(25, 25));
+        mSearchNextButton = makeIconButton(centralWidget, "navigation", "arrow_downward");
         layout22->addWidget(mSearchNextButton);
 
         mSearchResultWidget = new QLabel(centralWidget);
@@ -193,13 +182,26 @@ public:
         // ----------------------------------
         mLogWidget = new QPlainTextEdit(centralWidget);
         mLogWidget->setReadOnly(true);
-        mLogWidget->setLineWrapMode(QPlainTextEdit::LineWrapMode::NoWrap);
+        mLogWidget->setLineWrapMode(QPlainTextEdit::NoWrap);
         mLogWidget->setFont(QFont("Ubuntu Mono", 14));
         layout1->addWidget(mLogWidget);
         // ----------------------------------
 
         mSnackbar = new QtMaterialSnackbar(centralWidget);
         mainWindow->setCentralWidget(centralWidget);
+    }
+
+private:
+    QtMaterialFlatButton *makeIconButton(QWidget *parent, QString category, QString icon) {
+        QtMaterialFlatButton *button = new QtMaterialFlatButton(parent);
+        button->setRole(Material::Primary);
+        button->setFixedSize(32, 32);
+        button->setIcon(QtMaterialTheme::icon(category, icon));
+        button->setIconSize(QSize(24, 24));
+        button->setIconPlacement(Material::CenterIcon);
+        button->setRippleStyle(Material::NoRipple);
+        button->setOverlayStyle(Material::TintedOverlay);
+        return button;
     }
 };
 

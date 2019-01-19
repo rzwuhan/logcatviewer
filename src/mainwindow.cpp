@@ -17,6 +17,8 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->setupUi(this);
 
+    connect(ui->mClearWidget, &QPushButton::clicked, this, &MainWindow::clear);
+
     ui->mAutoScrolWidget->setChecked(auto_scroll);
     connect(ui->mAutoScrolWidget, &QAbstractButton::toggled, this, [this](int checked) {
         this->auto_scroll = checked;

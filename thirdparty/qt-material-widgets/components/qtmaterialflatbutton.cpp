@@ -705,7 +705,8 @@ void QtMaterialFlatButton::paintForeground(QPainter *painter)
     QSize textSize(fontMetrics().size(Qt::TextSingleLine, text()));
     QSize base(size()-textSize);
 
-    const int iw = iconSize().width() + IconPadding;
+    const int iconPadding = Material::CenterIcon == d->iconPlacement ? 0 : IconPadding;
+    const int iw = iconSize().width() + iconPadding;
     QPoint pos(Qt::AlignLeft == d->textAlignment ? 12 : (base.width()-iw)/2, 0);
 
     QRect textGeometry(pos + QPoint(0, base.height()/2), textSize);
@@ -713,8 +714,8 @@ void QtMaterialFlatButton::paintForeground(QPainter *painter)
 
     if (Material::LeftIcon == d->iconPlacement) {
         textGeometry.translate(iw, 0);
-    } else {
-        iconGeometry.translate(textSize.width() + IconPadding, 0);
+    } else if (Material::RightIcon == d->iconPlacement) {
+        iconGeometry.translate(textSize.width() + iconPadding, 0);
     }
 
     painter->drawText(textGeometry, Qt::AlignCenter, text());

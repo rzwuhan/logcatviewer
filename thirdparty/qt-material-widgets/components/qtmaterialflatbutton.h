@@ -85,7 +85,7 @@ public:
 
 protected:
     enum {
-        IconPadding = 0
+        IconPadding = 12
     };
 
     QtMaterialFlatButton(QtMaterialFlatButtonPrivate &d, QWidget *parent = 0, Material::ButtonPreset preset = Material::FlatPreset);
