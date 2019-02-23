@@ -20,7 +20,7 @@ aux_source_directory(qt-material-widgets/components/layouts QT_MATERIAL_WIDGETS)
 add_library(qtmaterialwidgets STATIC
         ${QT_MATERIAL_WIDGETS}
         qt-material-widgets/components/resources.qrc)
-target_link_libraries(qtmaterialwidgets Qt5::Core Qt5::Widgets Qt5::Gui)
+target_link_libraries(qtmaterialwidgets Qt5::Widgets)
 
 # -----------------------------------------------------------------------------------------
 # example

@@ -10,7 +10,7 @@ logcat viewer for android with qt5
 
 ```bash
 linuxdeployqt logcatviewer                      \
-    -qmake=/opt/qt/5.9.6/gcc_64/bin/qmake       \
+    -qmake=/opt/qt/5.12.0/gcc_64/bin/qmake       \
     -appimage -no-translations                  \
     -extra-plugins=iconengines/libqsvgicon.so
 ```

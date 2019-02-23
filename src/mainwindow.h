@@ -11,10 +11,10 @@
 #include <qtmaterialautocomplete.h>
 #include <qtmaterialflatbutton.h>
 #include <qtmaterialraisedbutton.h>
+#include <qtmaterialsnackbar.h>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QPlainTextEdit>
 #include <QtWidgets/QVBoxLayout>
-#include <thirdparty/qt-material-widgets/components/qtmaterialsnackbar.h>
 
 #include "config.h"
 #include "adbhelper.h"
