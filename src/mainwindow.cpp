@@ -1,9 +1,6 @@
 #include <qdebug.h>
 #include "mainwindow.h"
 #include <QtWidgets/QMessageBox>
-#include <QtCore/QJsonParseError>
-#include <QtCore/QJsonObject>
-#include <QtCore/QJsonArray>
 #include <QtWidgets/QScrollBar>
 
 MainWindow::MainWindow(QWidget *parent) :
@@ -35,9 +32,8 @@ MainWindow::MainWindow(QWidget *parent) :
         }
     });
 
-    loadConfig();
-    if (!config.hasFilter()) {
-        ui->mFilterSelectionWidget->setDataSource(config.getFilterKeys());
+    if (!Config::GetInstance().hasFilter()) {
+        ui->mFilterSelectionWidget->setDataSource(Config::GetInstance().getFilterKeys());
         connect(ui->mFilterSelectionWidget, &QtMaterialAutoComplete::itemSelected, this, &MainWindow::selectFilter);
     } else {
         ui->mFilterSelectionWidget->setVisible(false);
@@ -94,7 +90,7 @@ void MainWindow::updateLogWidget() {
 
 void MainWindow::selectFilter(QString key) {
     qDebug() << "select filter:" << key;
-    current_filter = config.getFilter(key);
+    current_filter = Config::GetInstance().getFilter(key);
 
     std::unique_lock<std::mutex> lck(adb->logs_lock);
     adb->logs_current_index = 0;
@@ -213,28 +209,7 @@ void MainWindow::keyPressEvent(QKeyEvent *event) {
     QWidget::keyPressEvent(event);
 }
 
-void MainWindow::loadConfig() {
-    QFile file("logcatviewer.json");
-    if (file.open(QIODevice::ReadOnly)) {
-        QJsonParseError e;
-        QJsonDocument json = QJsonDocument::fromJson(file.readAll(), &e);
-        if (e.error == QJsonParseError::NoError && !json.isNull()) {
-            QJsonObject root = json.object();
-            if (root.contains("filters")) {
-                QJsonArray filters = root.take("filters").toArray();
-                for (QJsonValue filter : filters) {
-                    QSet<QString> value;
-                    for (QJsonValue item : filter.toObject().take("value").toArray()) {
-                        value.insert(item.toString());
-                    }
-                    config.addFilter(filter.toObject().take("name").toString(), value);
-                }
-            }
-        } else {
-            qDebug() << " 解析配置文件失败:" << e.errorString();
-        }
-    }
-}
+
 
 void MainWindow::onLogUpdate() {
     emit signalUpdateLogWidget();

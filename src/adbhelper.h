@@ -11,6 +11,7 @@
 #include <map>
 #include <condition_variable>
 #include "logitem.h"
+#include "config.h"
 
 class ADBListener {
 
@@ -36,7 +37,7 @@ private:
     void close(QProcess *process);
 
 public:
-    QString adb_absolute_path = "/opt/androidsdk/platform-tools/adb";
+    QString adb_absolute_path = Config::GetInstance().mADB;
 
     std::mutex logs_lock;
     QVector<LogItem> logs;

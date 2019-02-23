@@ -14,3 +14,7 @@ linuxdeployqt logcatviewer                      \
     -appimage -no-translations                  \
     -extra-plugins=iconengines/libqsvgicon.so
 ```
+
+# screenshots
+
+![](./images/screenshots1.png)

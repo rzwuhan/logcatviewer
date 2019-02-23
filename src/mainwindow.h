@@ -58,21 +58,6 @@ private:
 
     void clear();
 
-    /**
-     *
-     * 加载配置文件
-     *
-     * {
-     *     "filters":
-     *     [
-     *         {"name": "filter1", "value": ["taga","tagb"]},
-     *         {"name": "filter2", "value": ["tag1","tag2","tag3"]}
-     *     ]
-     * }
-     *
-     **/
-    void loadConfig();
-
 Q_SIGNALS:
 
     void signalUpdateLogWidget();
@@ -86,7 +71,6 @@ private:
     /**
      * 自定义tag过滤列表
      */
-    Config config;
     QSet<QString> current_filter;
 
     /**
